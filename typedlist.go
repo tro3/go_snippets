@@ -21,6 +21,23 @@ func (x *TypeAList) Insert(ind int, val TYPEA) {
 	*x = append(*x, tmp...)
 }
 
+func (x *TypeAList) Remove(ind int) TYPEA {
+	y := (*x)[ind]
+	tmp := (*x)[ind+1:]
+	*x = (*x)[0:ind]
+	*x = append(*x, tmp...)
+	return y
+}
+
+func (x *TypeAList) Index(val TYPEA) int {
+	for ind, cand := range *x {
+		if val == cand {
+			return ind
+		}
+	}
+	return -1
+}
+
 func (x TypeAList) Filter(fn func(TYPEA) bool) TypeAList {
 	y := TypeAList{}
 	for _, val := range x {
