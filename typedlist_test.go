@@ -6,7 +6,7 @@ import (
 
 func TestPush(t *testing.T) {
 	h := NewTestHelper(t)
-	a := TYPEAList{}
+	a := TypeAList{}
 	a.Push(TYPEA{3})
 	a.Push(TYPEA{4})
 	a.Push(TYPEA{5})
@@ -15,7 +15,7 @@ func TestPush(t *testing.T) {
 
 func TestPop(t *testing.T) {
 	h := NewTestHelper(t)
-	a := TYPEAList{TYPEA{5}, TYPEA{4}, TYPEA{3}}
+	a := TypeAList{TYPEA{5}, TYPEA{4}, TYPEA{3}}
 	x := a.Pop()
 	h.Assert(len(a) == 2, "Incorrect Pop length")
 	h.Assert(x.age == 3, "Incorrect Pop value")
@@ -23,7 +23,7 @@ func TestPop(t *testing.T) {
 
 func TestSort(t *testing.T) {
 	h := NewTestHelper(t)
-	a := TYPEAList{TYPEA{5}, TYPEA{4}, TYPEA{3}}
+	a := TypeAList{TYPEA{5}, TYPEA{4}, TYPEA{3}}
 	a.Sort(func(a, b TYPEA) bool {
 		return a.age < b.age
 	})
@@ -32,7 +32,7 @@ func TestSort(t *testing.T) {
 
 func TestInsert(t *testing.T) {
 	h := NewTestHelper(t)
-	a := TYPEAList{TYPEA{5}, TYPEA{4}, TYPEA{3}}
+	a := TypeAList{TYPEA{5}, TYPEA{4}, TYPEA{3}}
 	a.Insert(1, TYPEA{6})
 	h.Assert(len(a) == 4, "Incorrect Insert length")
 	h.Assert(a[1].age == 6, "Incorrect Insert value")
@@ -40,7 +40,7 @@ func TestInsert(t *testing.T) {
 
 func TestFilter(t *testing.T) {
 	h := NewTestHelper(t)
-	a := TYPEAList{TYPEA{5}, TYPEA{4}, TYPEA{6}, TYPEA{3}}
+	a := TypeAList{TYPEA{5}, TYPEA{4}, TYPEA{6}, TYPEA{3}}
 	b := a.Filter(func(val TYPEA) bool {
 		return val.age > 4
 	})

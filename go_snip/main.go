@@ -17,7 +17,7 @@ import (
 	"strings"
 )
 
-var root string = "src/github.com/tro3/go_snippets/"
+var root string = "src/github.com/tro3/go_snippets"
 
 var router map[string]func() = map[string]func(){
 	"testhelper":   handleTestHelper,
@@ -31,6 +31,13 @@ func main() {
 		panic("Unknown snippet: " + os.Args[1])
 	}
 	fn()
+}
+
+func capVariants(in string) (orig, cap, low string) {
+	orig = in
+	low = strings.ToLower(orig)
+	cap = strings.Title(low)
+	return
 }
 
 func generateFile(in, out string, replace map[string]string) {
@@ -60,31 +67,34 @@ func handleTestHelper() {
 }
 
 func handleTypedList() {
-	proj := os.Args[2] // Target project name
-	kind := os.Args[3] // Target object name
+	proj := os.Args[2]                            // Target project name
+	kind, ckind, lkind := capVariants(os.Args[3]) // Target object name
 
 	generateFile(
 		"typedlist.go",
-		fmt.Sprintf("%s_list.go", strings.ToLower(kind)),
+		fmt.Sprintf("%s_list.go", lkind),
 		map[string]string{
 			"snippets": proj,
 			"TYPEA":    kind,
+			"TypeA":    ckind,
 		},
 	)
 }
 
 func handleTypedListMap() {
-	proj := os.Args[2]  // Target project name
-	kind := os.Args[3]  // Target object name
-	mkind := os.Args[4] // Target resulting object name
+	proj := os.Args[2]                            // Target project name
+	kind, ckind, lkind := capVariants(os.Args[3]) // Target object name
+	targ, ctarg, ltarg := capVariants(os.Args[4]) // Target resulting object name
 
 	generateFile(
 		"typedlistmap.go",
-		fmt.Sprintf("%s_list_map.go", strings.ToLower(kind)),
+		fmt.Sprintf("%s_list_map_%s.go", lkind, ltarg),
 		map[string]string{
 			"snippets": proj,
 			"TYPEA":    kind,
-			"TYPEB":    mkind,
+			"TypeA":    ckind,
+			"TYPEB":    targ,
+			"TypeB":    ctarg,
 		},
 	)
 }

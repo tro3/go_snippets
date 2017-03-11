@@ -2,27 +2,27 @@ package snippets
 
 import "sort"
 
-type TYPEAList []TYPEA
+type TypeAList []TYPEA
 
-func (x *TYPEAList) Push(val TYPEA) {
+func (x *TypeAList) Push(val TYPEA) {
 	*x = append(*x, val)
 }
 
-func (x *TYPEAList) Pop() TYPEA {
+func (x *TypeAList) Pop() TYPEA {
 	y := (*x)[len(*x)-1]
 	*x = (*x)[0 : len(*x)-1]
 	return y
 }
 
-func (x *TYPEAList) Insert(ind int, val TYPEA) {
+func (x *TypeAList) Insert(ind int, val TYPEA) {
 	tmp := (*x)[ind:]
 	*x = (*x)[0:ind]
 	*x = append(*x, val)
 	*x = append(*x, tmp...)
 }
 
-func (x TYPEAList) Filter(fn func(TYPEA) bool) TYPEAList {
-	y := TYPEAList{}
+func (x TypeAList) Filter(fn func(TYPEA) bool) TypeAList {
+	y := TypeAList{}
 	for _, val := range x {
 		if fn(val) {
 			y = append(y, val)
@@ -34,7 +34,7 @@ func (x TYPEAList) Filter(fn func(TYPEA) bool) TYPEAList {
 // Sorting support, given a Less function
 
 type TYPEASort struct {
-	list TYPEAList
+	list TypeAList
 	less func(a, b TYPEA) bool
 }
 
@@ -50,7 +50,7 @@ func (x TYPEASort) Less(i, j int) bool {
 	return x.less(x.list[i], x.list[j])
 }
 
-func (x *TYPEAList) Sort(less func(a, b TYPEA) bool) {
+func (x *TypeAList) Sort(less func(a, b TYPEA) bool) {
 	ts := TYPEASort{*x, less}
 	sort.Sort(ts)
 }
