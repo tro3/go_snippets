@@ -3,9 +3,9 @@ package main
 /*
 Example usages in go file:
 
-//go:generate gen_snip testhelper pkgname
-//go:generate gen_snip typedlist pkgname ObjectName
-//go:generate gen_snip typedlistmap pkgname ObjectName TargetName
+//go:generate go_snip testhelper pkgname
+//go:generate go_snip typedlist pkgname ObjectName
+//go:generate go_snip typedlistmap pkgname ObjectName TargetName
 */
 
 import (
